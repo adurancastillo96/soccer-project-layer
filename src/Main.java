@@ -1,3 +1,7 @@
+import model.Player;
+import model.Team;
+import persistence.SoccerDatabase;
+
 import java.util.Scanner;
 import java.util.Random;
 import java.util.List;
@@ -265,7 +269,7 @@ public class Main {
 
     // --------------- METODOS AUXILIARES ----------------
     /** findTeamById:
-     * Retorna Team o null.
+     * Retorna model.Team o null.
     * */
     private static Team findTeamById(UUID id) {
         return teams.stream().filter(team -> team.getId().equals(id)).findFirst().orElse(null);
