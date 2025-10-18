@@ -1,6 +1,7 @@
 import model.Player;
 import model.Team;
 import persistence.SoccerDatabase;
+import persistence.SoccerDatabaseCSV;
 
 import java.util.Scanner;
 import java.util.Random;

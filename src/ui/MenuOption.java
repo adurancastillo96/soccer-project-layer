@@ -29,7 +29,7 @@ public enum MenuOption {
     /** Metodo de búsqueda
      * Devuelve null o objetos MenuOption*/
     public static MenuOption fromInt(int optionNumber) {
-        for (MenuOption option : values()) {
+        for (MenuOption option : MenuOption.values()) {
             if (option.getOptionNumber() == optionNumber) return option;
         }
         return null;
