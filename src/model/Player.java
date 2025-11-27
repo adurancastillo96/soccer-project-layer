@@ -1,5 +1,8 @@
 package model;
 
+import domain.DomainErrorCode;
+import domain.DomainException;
+
 import java.util.UUID;
 import java.time.Year;
 
@@ -14,34 +17,24 @@ public class Player {
     private static final int CURRENT_YEAR  = Year.now().getValue();
 
     // -------- ATRIBUTOS PRINCIPALES --------
-    private final UUID id;
-    private String fullName;
-    private int birthYear;
-    private String fieldLocation;
-    private int squadNumber;
-    private int goals;
+    private UUID playerId, teamId;
+    private String fullName, fieldLocation;
+    private int birthYear, squadNumber, goals;
 
     // ---------- CONSTRUCTOR ----------
-    public Player(String fullName, int birthYear, String fieldLocation, int squadNumber, int goals) {
-        this.id = UUID.randomUUID();
+    public Player(UUID teamId, String fullName, int birthYear, String fieldLocation, int squadNumber) {
+        this.setTeamId(teamId);
+        this.playerId = UUID.randomUUID();
         this.setFullName(fullName);
         this.setBirthYear(birthYear);
         this.setFieldLocation(fieldLocation);
         this.setSquadNumber(squadNumber);
-        this.setGoals(goals);
-    }
-
-    public Player(UUID id, String fullName, int birthYear, String fieldLocation, int squadNumber, int goals) {
-        this.id = id;
-        this.setFullName(fullName);
-        this.setBirthYear(birthYear);
-        this.setFieldLocation(fieldLocation);
-        this.setSquadNumber(squadNumber);
-        this.setGoals(goals);
+        this.setGoals(0);
     }
 
     // ---------- GETTERS ----------
-    public UUID getId() { return this.id; }
+    public UUID getTeamId() { return this.teamId; }
+    public UUID getPlayerId() { return this.playerId; }
     public String getFullName() { return this.fullName; }
     public int getBirthYear() { return this.birthYear; }
     public String getFieldLocation() { return this.fieldLocation; }
@@ -49,6 +42,20 @@ public class Player {
     public int getGoals() { return this.goals; }
 
     // ---------- SETTERS ----------
+    public void setTeamId(UUID teamId) {
+        if (teamId == null) {
+            throw new IllegalArgumentException("El ID del equipo no puede ser nulo.");
+        }
+        this.teamId = teamId;
+    }
+
+    public void setPlayerId(UUID playerId) {
+        if (playerId == null) {
+            throw new IllegalArgumentException("El ID del equipo no puede ser nulo.");
+        }
+        this.playerId = playerId;
+    }
+
     public void setFullName(String fullName) {
         if (fullName == null) {
             throw new IllegalArgumentException("El nombre no puede ser nulo.");
@@ -86,7 +93,7 @@ public class Player {
      * Validodor que limita el numero de dorsales entre 0 y 100.
      **/
     public void setSquadNumber(int squadNumber) {
-        if (squadNumber < 0 || squadNumber > 100) throw new IllegalArgumentException("Dorsal fuera de rango (0-100).");
+        if (squadNumber < 0 || squadNumber > 100) throw new DomainException(DomainErrorCode.INVALID_SQUAD_NUMBER, "Dorsal fuera de rango (0-100).");
         this.squadNumber = squadNumber;
     }
 
@@ -100,14 +107,23 @@ public class Player {
         this.goals = goals;
     }
 
+    public void incrementGoals() { this.setGoals(this.goals + 1); }
+
     public String getSummary() {
-        return String.format("ID:%s | %s | Nac.:%d | Pos:%s | Dorsal:%d | Goles:%d",
-                this.id, this.fullName, this.birthYear, this.fieldLocation, this.squadNumber, this.goals);
+        return String.format("Información del jugador:\n" +
+                        "- Equipo ID: %s\n" +
+                        "- Jugador ID: %s\n" +
+                        "- Nombre completo: %s\n" +
+                        "- Año de Nacimiento: %d\n" +
+                        "- Posición: %s\n" +
+                        "- Dorsal: %d\n" +
+                        "- Goles: %d\n",
+                this.teamId, this.playerId, this.fullName, this.birthYear, this.fieldLocation, this.squadNumber, this.goals);
     }
 
     @Override
     public String toString() {
-        return "Jugador{"+ this.getSummary() +"}";
+        return this.getSummary();
     }
 
 }
