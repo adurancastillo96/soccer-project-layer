@@ -17,7 +17,7 @@ public class Player {
     private static final int CURRENT_YEAR  = Year.now().getValue();
 
     // -------- ATRIBUTOS PRINCIPALES --------
-    private UUID playerId, teamId;
+    private UUID teamId, playerId;
     private String fullName, fieldLocation;
     private int birthYear, squadNumber, goals;
 
@@ -117,7 +117,7 @@ public class Player {
                         "- Año de Nacimiento: %d\n" +
                         "- Posición: %s\n" +
                         "- Dorsal: %d\n" +
-                        "- Goles: %d\n",
+                        "- Goles: %d",
                 this.teamId, this.playerId, this.fullName, this.birthYear, this.fieldLocation, this.squadNumber, this.goals);
     }
 

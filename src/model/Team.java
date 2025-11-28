@@ -72,38 +72,12 @@ public class Team {
                         "- Ciudad: %s\n" +
                         "- Entrenador: %s\n" +
                         "- Formación: %s\n" +
-                        "- Victorias: %d\n",
+                        "- Victorias: %d",
                 teamId, name, city, coach, formation, matchesWon);
     }
 
     // -------- METODOS --------
     public void incrementMatchesWon() { this.matchesWon++; }
-
-    /** Añade un jugador si no existe otro con el mismo nombre (case-insensitive).
-     * Retorna un boolean*/
-    //public boolean addPlayer(Player p) {
-    //    if (p == null) throw new IllegalArgumentException("El jugador no puede ser null.");
-    //    boolean duplicateName = players.stream()
-    //            .anyMatch(existing -> existing.getFullName().equalsIgnoreCase(p.getFullName()));
-    //    if (duplicateName) return false;
-    //    return players.add(p);
-    //}
-
-    /** Elimina un jugador por su UUID. */
-    //public boolean removePlayerById(UUID playerId) {
-    //    if (playerId == null) throw new IllegalArgumentException("El ID del jugador no puede ser null.");
-    //    return players.removeIf(pl -> pl.getId().equals(playerId));
-    //}
-
-    /** Busca un jugador por su UUID. Devuelve null si no existe. */
-    // Alternativa: return players.stream().filter(p -> p.getId().equals(playerId)).findFirst();
-    //public Player findPlayer(UUID playerId) {
-    //    if (playerId == null) throw new IllegalArgumentException("El ID del jugador no puede ser null.");
-    //    for (Player p : players) {
-    //        if (p.getId().equals(playerId)) return p;
-    //    }
-    //    return null;
-    //}
 
     @Override
     public String toString() {

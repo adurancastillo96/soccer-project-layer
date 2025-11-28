@@ -2,7 +2,6 @@ package service;
 
 import model.Player;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -52,5 +51,5 @@ public interface PlayerService {
      * @return the List<Player>
      * @throws domain.DomainException if player not found
      */
-    List<Player> getPlayersOfTeam(UUID teamId);
+    List<Player> getPlayers(UUID teamId);
 }

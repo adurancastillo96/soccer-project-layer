@@ -65,7 +65,7 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public List<Player> getPlayersOfTeam(UUID teamId) {
+    public List<Player> getPlayers(UUID teamId) {
         List<Player> players = repository.findPlayersByTeam(teamId);
         if (players == null) return List.of();
         return players;

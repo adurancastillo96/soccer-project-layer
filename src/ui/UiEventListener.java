@@ -13,13 +13,13 @@ public class UiEventListener implements DomainEventListener<DomainEvent> {
     @Override
     public void onEvent(DomainEvent event) {
         if (event instanceof TeamCreatedEvent tc) {
-            System.out.println("[INFO] Equipo creado: " + tc.getName() + " (" + tc.getTeamId() + ")");
+            System.out.println("\n[INFO] Equipo creado: " + tc.getName() + " (" + tc.getTeamId() + ")");
         } else if (event instanceof TeamDeletedEvent tr) {
-            System.out.println("[INFO] Equipo eliminado: " + tr.getTeamId());
+            System.out.println("\n[INFO] Equipo eliminado: " + tr.getName() + " (" + tr.getTeamId() + ")");
         } else if (event instanceof PlayerAddedToTeamEvent pa) {
-            System.out.println("[INFO] Jugador añadido: " + pa.getPlayerId() + " al equipo " + pa.getTeamId() + " con dorsal " + pa.getSquadNumber());
+            System.out.println("\n[INFO] Jugador añadido: " + pa.getPlayerId() + " al equipo " + pa.getTeamId() + " con dorsal " + pa.getSquadNumber());
         } else if (event instanceof PlayerDeletedFromTeamEvent pr) {
-            System.out.println("[INFO] Jugador eliminado: " + pr.getPlayerId() + " del equipo " + pr.getTeamId());
+            System.out.println("\n[INFO] Jugador eliminado: " + pr.getPlayerId() + " del equipo " + pr.getTeamId());
         } else if (event instanceof MatchSimulatedEvent ms) {
             // Determine outcome
             String resultado;
@@ -30,7 +30,7 @@ public class UiEventListener implements DomainEventListener<DomainEvent> {
             } else {
                 resultado = "Empate";
             }
-            System.out.println("[INFO] Partido simulado: " + ms.getTeamAId() + " " + ms.getGoalsA() + " - " + ms.getGoalsB() + " " + ms.getTeamBId() + " (" + resultado + ")");
+            System.out.println("\n[INFO] Partido simulado: " + ms.getTeamAId() + " " + ms.getGoalsA() + " - " + ms.getGoalsB() + " " + ms.getTeamBId() + " (" + resultado + ")");
         }
     }
 }

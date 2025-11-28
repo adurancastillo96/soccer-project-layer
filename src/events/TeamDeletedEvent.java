@@ -7,8 +7,13 @@ import java.util.UUID;
  */
 public class TeamDeletedEvent implements DomainEvent {
     private final UUID teamId;
+    private final String name;
 
-    public TeamDeletedEvent(UUID teamId) { this.teamId = teamId; }
+    public TeamDeletedEvent(UUID teamId, String name) {
+        this.teamId = teamId;
+        this.name = name;
+    }
 
     public UUID getTeamId() { return this.teamId; }
+    public String getName() { return this.name; }
 }

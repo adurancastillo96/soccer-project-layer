@@ -41,7 +41,7 @@ public class TeamServiceImpl implements TeamService {
             throw new DomainException(DomainErrorCode.TEAM_NOT_FOUND, "Equipo "+ teamId +" no encontrado.");
         }
         repository.deleteTeam(teamId);
-        eventBus.publish(new TeamDeletedEvent(teamId));
+        eventBus.publish(new TeamDeletedEvent(teamId, existing.get().getName()));
     }
 
     @Override
@@ -59,8 +59,8 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     public Optional<Team> simulateMatch(UUID teamAid, UUID teamBid) {
-        Random random = new Random();
-        int outcome = random.nextInt(3); // 0=draw,1=teamA,2=teamB
+        // Random random = new Random();
+        // int outcome = random.nextInt(3); // 0=draw,1=teamA,2=teamB
         int goalsA = generateGoals(teamAid);
         int goalsB = generateGoals(teamBid);
         if (goalsA > goalsB) {

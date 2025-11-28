@@ -76,7 +76,7 @@ public class AppController {
 
             Optional<Player> player = playerService.getPlayer(playerId);
             if (player.isPresent()) {
-                System.out.println(player);
+                System.out.println(player.get());
             } else {
                 System.out.println("> Jugador no encontrado");
             }
@@ -96,7 +96,7 @@ public class AppController {
                 return;
             }
 
-            List<Player> players = playerService.getPlayersOfTeam(teamId);
+            List<Player> players = playerService.getPlayers(teamId);
             if (players.isEmpty()) {
                 System.out.println("> El equipo no tiene jugadores.");
             } else {
@@ -112,7 +112,7 @@ public class AppController {
 
     public void showTeamInfo(Scanner scanner) {
         System.out.print("\n=== Mostrar info de un equipo ===");
-        System.out.print("ID del equipo: ");
+        System.out.print("\nID del equipo: ");
         String teamIdStr = scanner.nextLine().trim();
         try {
             UUID teamId = IdUtils.parse(teamIdStr);
@@ -125,8 +125,8 @@ public class AppController {
             if (team.isEmpty()) {
                 System.out.println("> Equipo no encontrado.");
             } else {
-                List<Player> players = playerService.getPlayersOfTeam(teamId);
-                System.out.println(team);
+                List<Player> players = playerService.getPlayers(teamId);
+                System.out.println(team.get());
                 System.out.println("- Número de jugadores: " + players.size());
             }
         } catch (DomainException e) {
@@ -179,7 +179,7 @@ public class AppController {
         } else {
             System.out.println("Resumen de equipos:\n");
             for (Team team : teams) {
-                List<Player> players = playerService.getPlayersOfTeam(team.getTeamId());
+                List<Player> players = playerService.getPlayers(team.getTeamId());
                 System.out.println("- " + team.getName() + " (ID: " + team.getTeamId() + ")" +
                         ", Jugadores: " + players.size() +
                         ", Partidos ganados: " + team.getMatchesWon());
@@ -205,7 +205,7 @@ public class AppController {
             if (winner.isEmpty()) {
                 System.out.println("El partido ha terminado en empate.");
             } else {
-                System.out.println("El ganador es: " + winner.get().getMatchesWon());
+                System.out.println("El ganador es: " + winner.get().getName());
             }
         } catch (DomainException e) {
             System.out.println("> Error: " + e.getMessage());

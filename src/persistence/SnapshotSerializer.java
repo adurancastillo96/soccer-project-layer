@@ -145,8 +145,8 @@ public class SnapshotSerializer {
                 if (line.isBlank()) continue;
                 String[] parts = line.split(";", -1);
                 if (parts.length < 7) continue;
-                UUID playerId = UUID.fromString(parts[0]);
-                UUID teamId = UUID.fromString(parts[1]);
+                UUID teamId = UUID.fromString(parts[0]);
+                UUID playerId = UUID.fromString(parts[1]);
                 String fullName = unescapeCsv(parts[2]);
                 int birthYear = Integer.parseInt(parts[3]);
                 String fieldLocation = unescapeCsv(parts[4]);
@@ -275,10 +275,7 @@ public class SnapshotSerializer {
         if (value == null) return "";
         boolean needsQuotes = value.contains(";") || value.contains("\"");
         String escaped = value.replace("\"", "\"\"");
-        if (needsQuotes) {
-            return '"' + escaped + '"';
-        }
-        return escaped;
+        return needsQuotes ? '"' + escaped + '"' : escaped;
     }
 
     /**
@@ -358,7 +355,7 @@ public class SnapshotSerializer {
             Player p = players.get(i);
             sb.append('{');
             sb.append("\"teamId\":\"").append(p.getTeamId()).append('\"');
-            sb.append("\"playerId\":\"").append(p.getPlayerId()).append('\"');
+            sb.append(',').append("\"playerId\":\"").append(p.getPlayerId()).append('\"');
             sb.append(',').append("\"fullName\":\"").append(escapeJson(p.getFullName())).append('\"');
             sb.append(',').append("\"birthYear\":").append(p.getBirthYear());
             sb.append(',').append("\"fieldLocation\":\"").append(escapeJson(p.getFieldLocation())).append('\"');
