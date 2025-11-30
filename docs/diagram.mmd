@@ -1,0 +1,23 @@
+graph TD
+    subgraph Service Layer ["Capa de Servicio (El Emisor)"]
+        TS[TeamServiceImpl] -- "1. publish(TeamCreatedEvent)" --> EB
+    end
+
+    subgraph Infrastructure ["El Bus de Eventos"]
+        EB((EventBus))
+
+        note[/"Mapa de Suscriptores:<br/>TeamCreatedEvent -> [UI, Persistencia]"/]
+        EB -.-> note
+    end
+
+    subgraph Listeners ["Suscriptores (Listeners)"]
+        direction TB
+        L1[UiEventListener]
+        L2[FilePersistenceListener]
+    end
+
+    EB -- "2. Envía asíncronamente" --> L1
+    EB -- "2. Envía asíncronamente" --> L2
+
+    L1 -- "3. Imprime en consola" --> Console[("🖥️ Consola")]
+    L2 -- "3. Guarda en disco" --> Disk[("💾 Archivo CSV/JSON")]
