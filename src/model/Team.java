@@ -14,7 +14,6 @@ public class Team {
     private UUID teamId;
     private String name, city, coach, formation;
     private int matchesWon;
-    //private final List<Player> players;
 
     // -------- CONSTRUCTOR --------
     public Team(String name, String city, String coach, String formation) {
@@ -33,8 +32,6 @@ public class Team {
     public String getCoach(){ return coach; }
     public String getFormation(){ return formation; }
     public int getMatchesWon(){ return matchesWon; }
-    //public int size() { return players.size(); }
-    //public List<Player> getPlayers() { return List.copyOf(players); }
 
     // -------- SETTERS (con validación) --------
     public void setTeamId(UUID teamId) {

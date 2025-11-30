@@ -4,12 +4,12 @@ import events.DomainEvent;
 import events.bus.DomainEventListener;
 import model.Player;
 import model.Team;
+import repository.PlayerRepository;
 import repository.TeamRepository;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -17,14 +17,16 @@ import java.util.concurrent.TimeUnit;
 
 public class FilePersistenceListener implements DomainEventListener<DomainEvent> {
 
-    private final TeamRepository repository;
+    private final PlayerRepository playerRepository;
+    private final TeamRepository teamRepository;
     private final SnapshotSerializer serializer;
     private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
     private ScheduledFuture<?> pendingTask;
     private final long debounceMillis;
 
-    public FilePersistenceListener(TeamRepository repository, SnapshotSerializer serializer, long debounceMillis) {
-        this.repository = repository;
+    public FilePersistenceListener(PlayerRepository playerRepository, TeamRepository teamRepository, SnapshotSerializer serializer, long debounceMillis) {
+        this.playerRepository = playerRepository;
+        this.teamRepository = teamRepository;
         this.serializer = serializer;
         this.debounceMillis = debounceMillis;
     }
@@ -51,8 +53,8 @@ public class FilePersistenceListener implements DomainEventListener<DomainEvent>
     }
 
     private void saveSnapshot() {
-        List<Team> teams = new ArrayList<>(repository.findAllTeams());
-        List<Player> players = new ArrayList<>(repository.findAllPlayers());
+        List<Team> teams = teamRepository.findAllTeams();
+        List<Player> players = playerRepository.findAllPlayers();
         try {
             serializer.saveSnapshotToCsv(teams, players);
             serializer.saveSnapshotToJson(teams, players);

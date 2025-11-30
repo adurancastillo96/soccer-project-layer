@@ -75,7 +75,7 @@ public class ConsoleMenu {
                 case EXIT -> {
                     controller.exitRequested();
                     this.running = false;
-                    System.out.println("Saliendo y guardando datos...");
+                    System.out.println("\nSaliendo y guardando datos...");
                 }
                 default -> System.out.println("Opción no válida, intente de nuevo.");
             }

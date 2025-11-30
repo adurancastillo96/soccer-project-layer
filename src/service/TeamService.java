@@ -3,6 +3,7 @@ package service;
 import model.Team;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -33,14 +34,14 @@ public interface TeamService {
      * @return the team if found
      * @throws domain.DomainException if not found
      */
-    Optional<Team> getTeam(UUID teamId);
+    Optional<Team> findTeam(UUID teamId);
 
     /**
      * Returns a list of all teams.
      *
      * @return list of teams
      */
-    Collection<Team> getAllTeams();
+    List<Team> findAllTeams();
 
     /**
      * Simulates a match between two teams. Updates the number of matches won

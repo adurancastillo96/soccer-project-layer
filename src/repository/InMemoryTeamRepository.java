@@ -10,10 +10,11 @@ import java.util.concurrent.ConcurrentHashMap;
  * Implementación en memoria de TeamRepository.
  * Usa Concurrent Maps - Thread-Safe
  */
-public class InMemoryTeamRepository implements TeamRepository {
+public class InMemoryTeamRepository implements TeamRepository, PlayerRepository {
     private final Map<UUID, Team> teams = new ConcurrentHashMap<>();
     private final Map<UUID, Player> players = new ConcurrentHashMap<>();
 
+    // --- MÉTODOS DE TEAM REPOSITORY ---
     @Override
     public void saveTeam(Team team) {
         teams.put(team.getTeamId(), team);
@@ -38,14 +39,13 @@ public class InMemoryTeamRepository implements TeamRepository {
     }
 
     @Override
-    public Collection<Team> findAllTeams() {
-        // return new ArrayList<>(teams.values());
-        return Collections.unmodifiableCollection(teams.values());
+    public List<Team> findAllTeams() {
+        return List.copyOf(teams.values());
     }
 
+    // --- MÉTODOS DE PLAYER REPOSITORY ---
     @Override
     public void savePlayer(Player player) {
-        // Revisar, save debe de hacer la comprobacion previa de si existe o no el jugador
         players.put(player.getPlayerId(), player);
     }
 
@@ -65,25 +65,15 @@ public class InMemoryTeamRepository implements TeamRepository {
     }
 
     @Override
-    public Collection<Player> findAllPlayers() {
-        return Collections.unmodifiableCollection(players.values());
+    public List<Player> findAllPlayers() {
+        return List.copyOf(players.values());
     }
 
     @Override
     public List<Player> findPlayersByTeam(UUID teamId) {
-        return players.values().stream().filter(player -> player.getTeamId().equals(teamId)).toList();
+        return players.values().stream()
+                .filter(player -> player.getTeamId().equals(teamId))
+                .toList();
     }
-
-    //@Override
-    //public void addPlayerToTeam(UUID teamId, Player player) {
-    //    Team team = teams.get(teamId);
-    //    if (team != null) {
-    //        players.put(player.getPlayerId(), player);
-    //    }
-    //}
-
-    //public int count() {
-    //    return teams.size();
-    //}
 
 }

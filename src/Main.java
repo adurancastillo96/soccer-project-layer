@@ -5,7 +5,6 @@ import model.Team;
 import persistence.SnapshotSerializer;
 import persistence.FilePersistenceListener;
 import repository.InMemoryTeamRepository;
-import repository.TeamRepository;
 import service.PlayerService;
 import service.TeamService;
 import service.impl.PlayerServiceImpl;
@@ -19,50 +18,64 @@ import java.util.List;
 
 public class Main {
 
+    // --- CONSTANTES DE CONFIGURACIÓN ---
+    private static final String TEAMS_CSV_PATH = "data/teams.csv";
+    private static final String PLAYERS_CSV_PATH = "data/players.csv";
+    private static final String TEAMS_JSON_PATH = "data/teams.json";
+    private static final String PLAYERS_JSON_PATH = "data/players.json";
+
+    // Tiempo de espera para guardar en disco tras un evento (Debounce)
+    private static final long PERSISTENCE_DEBOUNCE_MS = 300;
+
     public static void main(String[] args) {
 
         // Configure file paths relative to the working directory
-        Path teamsCsv = Path.of("data/teams.csv");
-        Path playersCsv = Path.of("data/players.csv");
-        Path teamsJson = Path.of("data/teams.json");
-        Path playersJson = Path.of("data/players.json");
+        Path teamsCsv = Path.of(TEAMS_CSV_PATH);
+        Path playersCsv = Path.of(PLAYERS_CSV_PATH);
+        Path teamsJson = Path.of(TEAMS_JSON_PATH);
+        Path playersJson = Path.of(PLAYERS_JSON_PATH);
 
         //SoccerDatabase database = new CsvSoccerDatabase(teamCsv, playerCsv);
         SnapshotSerializer serializer = new SnapshotSerializer(teamsCsv, playersCsv, teamsJson, playersJson);
 
         // Create repository and preload teams from persistence.
-        TeamRepository repository = new InMemoryTeamRepository();
+        InMemoryTeamRepository memoryRepo = new InMemoryTeamRepository();
 
         // Attempt to load data from JSON, falling back to CSV
         try {
+            System.out.println("Cargando datos...");
             List<Team> loadedTeams = serializer.loadTeamsSnapshotFromJson();
             List<Player> loadedPlayers = serializer.loadPlayersSnapshotFromJson();
+
             if (loadedTeams.isEmpty() || loadedPlayers.isEmpty()) {
+                System.out.println("Datos JSON no encontrados o vacíos. Intentando cargar CSV...");
                 loadedTeams = serializer.loadTeamsSnapshotFromCsv();
                 loadedPlayers = serializer.loadPlayersSnapshotFromCsv();
             }
             // Persist loaded teams to repository
-            repository.saveTeams(loadedTeams);
-            repository.savePlayers(loadedPlayers);
+            memoryRepo.saveTeams(loadedTeams);
+            memoryRepo.savePlayers(loadedPlayers);
+            System.out.println("Carga completada: " + loadedTeams.size() + " equipos y " + loadedPlayers.size() + " jugadores.");
 
         } catch (Exception e) {
-            System.err.println("No se pudo cargar la información guardada: " + e.getMessage());
+            System.err.println("Advertencia: No se pudo cargar la información guardada: " + e.getMessage());
         }
-
-        // Cargar datos guardados
-        //teams.addAll(database.load());
 
         /** Inicializar objetos*/
         EventBus eventBus = new EventBus();
-        TeamService teamService = new TeamServiceImpl(repository, eventBus);
-        PlayerService playerService = new PlayerServiceImpl(repository, eventBus);
+        TeamService teamService = new TeamServiceImpl(memoryRepo, memoryRepo, eventBus);
+        PlayerService playerService = new PlayerServiceImpl(memoryRepo, memoryRepo, eventBus);
 
         /** UI controller*/
         AppController controller = new AppController(teamService, playerService);
 
         /** Registrar listeners*/
         UiEventListener uiEventListener = new UiEventListener();
-        FilePersistenceListener persistenceListener = new FilePersistenceListener(repository, serializer, 300);
+        FilePersistenceListener persistenceListener = new FilePersistenceListener(
+                memoryRepo,
+                memoryRepo,
+                serializer,
+                PERSISTENCE_DEBOUNCE_MS);
 
         /** Subscribir cada tipo de evento explicitamente*/
         eventBus.subscribe(TeamCreatedEvent.class, uiEventListener);

@@ -33,7 +33,7 @@ public interface PlayerService {
      * @throws domain.DomainException if team not found
      * @throws domain.DomainException if player not found
      */
-    void deletePlayers(UUID teamId);
+    void deletePlayersByTeam(UUID teamId);
 
     /**
      * Finds a player by their identifier across all teams.
@@ -42,7 +42,7 @@ public interface PlayerService {
      * @return the Optional<Player>
      * @throws domain.DomainException if player not found
      */
-    Optional<Player> getPlayer(UUID playerId);
+    Optional<Player> findPlayer(UUID playerId);
 
     /**
      * Finds a List of players by their team identifier.
@@ -51,5 +51,5 @@ public interface PlayerService {
      * @return the List<Player>
      * @throws domain.DomainException if player not found
      */
-    List<Player> getPlayers(UUID teamId);
+    List<Player> findPlayersByTeam(UUID teamId);
 }

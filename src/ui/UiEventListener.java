@@ -22,15 +22,15 @@ public class UiEventListener implements DomainEventListener<DomainEvent> {
             System.out.println("\n[INFO] Jugador eliminado: " + pr.getPlayerId() + " del equipo " + pr.getTeamId());
         } else if (event instanceof MatchSimulatedEvent ms) {
             // Determine outcome
-            String resultado;
+            String result;
             if (ms.getGoalsA() > ms.getGoalsB()) {
-                resultado = "Equipo " + ms.getTeamAId() + " gana";
+                result = "Equipo " + ms.getTeamAId() + " gana";
             } else if (ms.getGoalsB() > ms.getGoalsA()) {
-                resultado = "Equipo " + ms.getTeamBId() + " gana";
+                result = "Equipo " + ms.getTeamBId() + " gana";
             } else {
-                resultado = "Empate";
+                result = "Empate";
             }
-            System.out.println("\n[INFO] Partido simulado: " + ms.getTeamAId() + " " + ms.getGoalsA() + " - " + ms.getGoalsB() + " " + ms.getTeamBId() + " (" + resultado + ")");
+            System.out.println("\n[INFO] Partido simulado: " + ms.getTeamAId() + " " + ms.getGoalsA() + " - " + ms.getGoalsB() + " " + ms.getTeamBId() + " (" + result + ")");
         }
     }
 }

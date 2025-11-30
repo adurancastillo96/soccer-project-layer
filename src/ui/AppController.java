@@ -74,7 +74,7 @@ public class AppController {
                 return;
             }
 
-            Optional<Player> player = playerService.getPlayer(playerId);
+            Optional<Player> player = playerService.findPlayer(playerId);
             if (player.isPresent()) {
                 System.out.println(player.get());
             } else {
@@ -96,7 +96,7 @@ public class AppController {
                 return;
             }
 
-            List<Player> players = playerService.getPlayers(teamId);
+            List<Player> players = playerService.findPlayersByTeam(teamId);
             if (players.isEmpty()) {
                 System.out.println("> El equipo no tiene jugadores.");
             } else {
@@ -121,11 +121,11 @@ public class AppController {
                 return;
             }
 
-            Optional<Team> team = teamService.getTeam(teamId);
+            Optional<Team> team = teamService.findTeam(teamId);
             if (team.isEmpty()) {
                 System.out.println("> Equipo no encontrado.");
             } else {
-                List<Player> players = playerService.getPlayers(teamId);
+                List<Player> players = playerService.findPlayersByTeam(teamId);
                 System.out.println(team.get());
                 System.out.println("- Número de jugadores: " + players.size());
             }
@@ -163,7 +163,7 @@ public class AppController {
                 return;
             }
 
-            playerService.deletePlayers(teamId);
+            playerService.deletePlayersByTeam(teamId);
             teamService.deleteTeam(teamId);
             System.out.println("> Equipo y jugadores se eliminaron correctamente.");
         } catch (DomainException e) {
@@ -173,13 +173,13 @@ public class AppController {
 
     public void showSummary() {
         System.out.println("\n=== Mostrar resumen ===");
-        Collection<Team> teams = teamService.getAllTeams();
+        List<Team> teams = teamService.findAllTeams();
         if (teams.isEmpty()) {
             System.out.println("> No hay equipos registrados.");
         } else {
             System.out.println("Resumen de equipos:\n");
             for (Team team : teams) {
-                List<Player> players = playerService.getPlayers(team.getTeamId());
+                List<Player> players = playerService.findPlayersByTeam(team.getTeamId());
                 System.out.println("- " + team.getName() + " (ID: " + team.getTeamId() + ")" +
                         ", Jugadores: " + players.size() +
                         ", Partidos ganados: " + team.getMatchesWon());
@@ -213,13 +213,7 @@ public class AppController {
     }
 
     public void exitRequested() {
-        // Save all data when exiting
-        /// database.save(repository.findallTeams());
-        /// database.save(teams);
-        System.out.println("Datos guardados.");
-        System.out.print("Saliendo del programa...");
-        System.exit(0);
+        System.out.print("\nCerrando sesión de usuario...");
     }
-
 
 }
