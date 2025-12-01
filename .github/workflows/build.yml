@@ -3,7 +3,7 @@ name: Java CI with Gradle
 # ¿Cuándo se ejecuta esto?
 on:
   push:
-    branches: [ "main" ] # Al hacer push a la rama principal
+    branches: [ "**" ] # Cualquier rama
   pull_request:
     branches: [ "main" ] # Al abrir un Pull Request hacia main
 
