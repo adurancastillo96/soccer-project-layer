@@ -1,0 +1,54 @@
+/*
+ * Script de construcción para Soccer Manager
+ */
+
+plugins {
+    id 'java'           // Habilita soporte para Java
+    id 'application'    // Nos permite ejecutar la app con 'gradle run'
+}
+
+group = 'com.soccer.manager'
+version = '1.0-SNAPSHOT'
+
+// Configuración para usar Java 17
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    mavenCentral() // Le dice a Gradle: "Baja las librerías del almacén oficial"
+}
+
+dependencies {
+    // --- LIBRERÍAS DE PRODUCCIÓN ---
+    // Jackson: Para leer/escribir JSON (Sustituye a tu parser manual)
+    // Al pedir 'jackson-databind', Gradle baja automáticamente 'core' y 'annotations'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+
+    // --- LIBRERÍAS DE TESTING (Para el futuro) ---
+    // JUnit 5: El estándar para pruebas unitarias
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.3'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.3'
+}
+
+// Configuración de la aplicación principal
+application {
+    // Como Main.java no tiene 'package', se pone solo 'Main'
+    mainClass = 'Main'
+}
+
+// Configuración para ejecutar los tests
+test {
+    useJUnitPlatform()
+
+    // AÑADE ESTO:
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+run {
+    standardInput = System.in
+}
