@@ -1,0 +1,32 @@
+name: Java CI with Gradle
+
+# ¿Cuándo se ejecuta esto?
+on:
+  push:
+    branches: [ "main" ] # Al hacer push a la rama principal
+  pull_request:
+    branches: [ "main" ] # Al abrir un Pull Request hacia main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # Usamos una máquina virtual Linux estándar
+
+    steps:
+      # 1. Descargar tu código
+      - uses: actions/checkout@v4
+
+      # 2. Instalar Java 17
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      # 3. Dar permisos de ejecución al script de Gradle (Importante en Linux)
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      # 4. Ejecutar el build y los tests
+      # Gradle 'build' compila, ejecuta tests y verifica todo
+      - name: Build with Gradle
+        run: ./gradlew build
