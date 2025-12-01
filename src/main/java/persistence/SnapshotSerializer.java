@@ -27,7 +27,7 @@ import java.util.UUID;
  * here is deliberately simple and only supports the exact structure
  * produced by {@code toJson}.
  */
-public class SnapshotSerializer {
+public class SnapshotSerializer implements DataSerializer {
     private final Path teamsCsvPath;
     private final Path playersCsvPath;
     private final Path teamsJsonPath;
@@ -46,6 +46,43 @@ public class SnapshotSerializer {
         this.mapper.enable(SerializationFeature.INDENT_OUTPUT);
     }
 
+    // ======================================================
+    //    IMPLEMENTACIÓN DE LA INTERFAZ (Lógica Unificada)
+    // ======================================================
+
+    @Override
+    public void save(List<Team> teams, List<Player> players) throws IOException {
+        // Guardamos en AMBOS formatos para seguridad (como hacías antes)
+        saveSnapshotToJson(teams, players);
+        saveSnapshotToCsv(teams, players);
+    }
+
+    @Override
+    public List<Team> loadTeams() throws IOException {
+        // Estrategia: Intentar JSON primero
+        List<Team> teams = loadTeamsSnapshotFromJson();
+
+        // Si no hay datos (o archivo no existe), intentamos CSV (Fallback)
+        if (teams.isEmpty()) {
+            System.out.println("(Log interno) JSON de equipos vacío o no existente. Intentando cargar desde CSV...");
+            teams = loadTeamsSnapshotFromCsv();
+        }
+        return teams;
+    }
+
+    @Override
+    public List<Player> loadPlayers() throws IOException {
+        // Estrategia: Intentar JSON primero
+        List<Player> players = loadPlayersSnapshotFromJson();
+
+        // Fallback a CSV
+        if (players.isEmpty()) {
+            System.out.println("(Log interno) JSON de jugadores vacío o no existente. Intentando cargar desde CSV...");
+            players = loadPlayersSnapshotFromCsv();
+        }
+        return players;
+    }
+
     // ==========================================
     //       NUEVA IMPLEMENTACIÓN CON JACKSON
     // ==========================================
@@ -59,7 +96,7 @@ public class SnapshotSerializer {
      * @param teams the current list of teams
      * @throws IOException if an IO error occurs
      */
-    public void saveSnapshotToJson(List<Team> teams, List<Player> players) throws IOException {
+    private void saveSnapshotToJson(List<Team> teams, List<Player> players) throws IOException {
         // Convertimos los objetos a String JSON usando Jackson.
         String teamsJson = mapper.writeValueAsString(teams);
         String playersJson = mapper.writeValueAsString(players);
@@ -77,7 +114,7 @@ public class SnapshotSerializer {
      * @return the list of deserialized teams
      * @throws IOException if an IO error occurs while reading
      */
-    public List<Team> loadTeamsSnapshotFromJson() throws IOException {
+    private List<Team> loadTeamsSnapshotFromJson() throws IOException {
         if (!Files.exists(teamsJsonPath)) return new ArrayList<>();
         // Jackson lee el archivo y lo convierte a Lista de Teams automáticamente
         return mapper.readValue(teamsJsonPath.toFile(), new TypeReference<List<Team>>() {});
@@ -91,7 +128,7 @@ public class SnapshotSerializer {
      * @return the list of deserialized teams
      * @throws IOException if an IO error occurs while reading
      */
-    public List<Player> loadPlayersSnapshotFromJson() throws IOException {
+    private List<Player> loadPlayersSnapshotFromJson() throws IOException {
         if (!Files.exists(playersJsonPath)) return new ArrayList<>();
         return mapper.readValue(playersJsonPath.toFile(), new TypeReference<List<Player>>() {});
     }
@@ -109,7 +146,7 @@ public class SnapshotSerializer {
      * @param teams the current list of teams
      * @throws IOException if any IO error occurs
      */
-    public void saveSnapshotToCsv(List<Team> teams, List<Player> players) throws IOException {
+    private void saveSnapshotToCsv(List<Team> teams, List<Player> players) throws IOException {
         // Build CSV content for teams and players
         StringBuilder teamsCsv = new StringBuilder();
         StringBuilder playersCsv = new StringBuilder();
@@ -147,7 +184,7 @@ public class SnapshotSerializer {
      * @return the list of deserialized teams
      * @throws IOException if an IO error occurs while reading
      */
-    public List<Team> loadTeamsSnapshotFromCsv() throws IOException {
+    private List<Team> loadTeamsSnapshotFromCsv() throws IOException {
         if (!Files.exists(teamsCsvPath)) return new ArrayList<>();
         Map<UUID, Team> teamMap = new HashMap<>();
         try (BufferedReader reader = Files.newBufferedReader(teamsCsvPath, StandardCharsets.UTF_8)) {
@@ -179,7 +216,7 @@ public class SnapshotSerializer {
      * @return the list of deserialized teams
      * @throws IOException if an IO error occurs while reading
      */
-    public List<Player> loadPlayersSnapshotFromCsv() throws IOException {
+    private List<Player> loadPlayersSnapshotFromCsv() throws IOException {
         if (!Files.exists(playersCsvPath)) return new ArrayList<>();
         Map<UUID, Player> playerMap = new HashMap<>();
         // Read players

@@ -18,12 +18,12 @@ public class FilePersistenceListener implements DomainEventListener<DomainEvent>
 
     private final PlayerRepository playerRepository;
     private final TeamRepository teamRepository;
-    private final SnapshotSerializer serializer;
+    private final DataSerializer serializer;
     private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
     private ScheduledFuture<?> pendingTask;
     private final long debounceMillis;
 
-    public FilePersistenceListener(PlayerRepository playerRepository, TeamRepository teamRepository, SnapshotSerializer serializer, long debounceMillis) {
+    public FilePersistenceListener(PlayerRepository playerRepository, TeamRepository teamRepository, DataSerializer serializer, long debounceMillis) {
         this.playerRepository = playerRepository;
         this.teamRepository = teamRepository;
         this.serializer = serializer;
@@ -55,8 +55,7 @@ public class FilePersistenceListener implements DomainEventListener<DomainEvent>
         List<Team> teams = teamRepository.findAllTeams();
         List<Player> players = playerRepository.findAllPlayers();
         try {
-            serializer.saveSnapshotToCsv(teams, players);
-            serializer.saveSnapshotToJson(teams, players);
+            serializer.save(teams, players);
         } catch (IOException e) {
             // If main.java.persistence fails we log to stderr but do not throw further
             System.err.println("Error al guardar datos: " + e.getMessage());

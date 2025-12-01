@@ -1,0 +1,22 @@
+[ {
+  "teamId" : "285d4795-c21b-4d85-b8f1-d0decd9aac21",
+  "name" : "Liverpool FC",
+  "city" : "Liverpool",
+  "coach" : "Arne Slot",
+  "formation" : "4-2-3-1",
+  "matchesWon" : 2
+}, {
+  "teamId" : "ad2e4982-b1ce-445d-9c5a-bdc80a43e269",
+  "name" : "FC Barcelona",
+  "city" : "Barcelona",
+  "coach" : "Hansi Flick",
+  "formation" : "4-3-3",
+  "matchesWon" : 2
+}, {
+  "teamId" : "8a219b29-c51e-4c78-9f07-e696eab20502",
+  "name" : "Real Madrid",
+  "city" : "Madrid",
+  "coach" : "Xabi Alonso",
+  "formation" : "4-3-3",
+  "matchesWon" : 0
+} ]

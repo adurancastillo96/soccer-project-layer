@@ -1,0 +1,233 @@
+[ {
+  "teamId" : "8a219b29-c51e-4c78-9f07-e696eab20502",
+  "playerId" : "95e017f0-7d4f-4fd8-b706-6e607d3d4f1e",
+  "fullName" : "Thibaut Courtois",
+  "fieldLocation" : "Goalkeeper",
+  "birthYear" : 1992,
+  "squadNumber" : 1,
+  "goals" : 0
+}, {
+  "teamId" : "8a219b29-c51e-4c78-9f07-e696eab20502",
+  "playerId" : "394c0a94-cd09-41fd-9301-06a1a43a9a72",
+  "fullName" : "Kylian Mbappé",
+  "fieldLocation" : "Forward",
+  "birthYear" : 1998,
+  "squadNumber" : 10,
+  "goals" : 0
+}, {
+  "teamId" : "8a219b29-c51e-4c78-9f07-e696eab20502",
+  "playerId" : "24c7fbad-f514-4677-9866-2212732f96d7",
+  "fullName" : "Éder Militão",
+  "fieldLocation" : "Centre-back",
+  "birthYear" : 1998,
+  "squadNumber" : 3,
+  "goals" : 0
+}, {
+  "teamId" : "8a219b29-c51e-4c78-9f07-e696eab20502",
+  "playerId" : "0e5d1390-873a-4e73-a7f8-363d8f20ec64",
+  "fullName" : "Antonio Rüdiger",
+  "fieldLocation" : "Centre-back",
+  "birthYear" : 1993,
+  "squadNumber" : 22,
+  "goals" : 0
+}, {
+  "teamId" : "8a219b29-c51e-4c78-9f07-e696eab20502",
+  "playerId" : "ef72a667-ad96-4682-9bed-771fefc6ab33",
+  "fullName" : "Álvaro Carreras",
+  "fieldLocation" : "Left-back",
+  "birthYear" : 2003,
+  "squadNumber" : 18,
+  "goals" : 0
+}, {
+  "teamId" : "8a219b29-c51e-4c78-9f07-e696eab20502",
+  "playerId" : "c32cbd64-0a44-486a-a5cd-a7aa93d433d2",
+  "fullName" : "Raúl Asencio",
+  "fieldLocation" : "Centre-back",
+  "birthYear" : 2003,
+  "squadNumber" : 17,
+  "goals" : 0
+}, {
+  "teamId" : "8a219b29-c51e-4c78-9f07-e696eab20502",
+  "playerId" : "c52dddc7-0a33-4337-85e5-a39ebec5d219",
+  "fullName" : "Federico Valverde",
+  "fieldLocation" : "Midfielder",
+  "birthYear" : 1998,
+  "squadNumber" : 15,
+  "goals" : 0
+}, {
+  "teamId" : "8a219b29-c51e-4c78-9f07-e696eab20502",
+  "playerId" : "df5b5385-1339-4cd6-8090-4d622287be54",
+  "fullName" : "Eduardo Camavinga",
+  "fieldLocation" : "Midfielder",
+  "birthYear" : 2002,
+  "squadNumber" : 6,
+  "goals" : 0
+}, {
+  "teamId" : "285d4795-c21b-4d85-b8f1-d0decd9aac21",
+  "playerId" : "13ff35b4-3589-443a-8852-a7871f8ab375",
+  "fullName" : "Cody Gakpo",
+  "fieldLocation" : "Forward",
+  "birthYear" : 2000,
+  "squadNumber" : 13,
+  "goals" : 1
+}, {
+  "teamId" : "8a219b29-c51e-4c78-9f07-e696eab20502",
+  "playerId" : "d1fb9f67-8b4b-44ba-a3dc-a237df026317",
+  "fullName" : "Andriy Lunin",
+  "fieldLocation" : "Goalkeeper",
+  "birthYear" : 1999,
+  "squadNumber" : 13,
+  "goals" : 0
+}, {
+  "teamId" : "8a219b29-c51e-4c78-9f07-e696eab20502",
+  "playerId" : "9be6a9b1-5a98-4ac9-af25-90b35a29112f",
+  "fullName" : "David Alaba",
+  "fieldLocation" : "Centre-back",
+  "birthYear" : 1992,
+  "squadNumber" : 4,
+  "goals" : 0
+}, {
+  "teamId" : "285d4795-c21b-4d85-b8f1-d0decd9aac21",
+  "playerId" : "af8cdc1b-3371-41c0-8d64-c869f73b8848",
+  "fullName" : "Mohamed Salah",
+  "fieldLocation" : "Forward",
+  "birthYear" : 1992,
+  "squadNumber" : 11,
+  "goals" : 5
+}, {
+  "teamId" : "285d4795-c21b-4d85-b8f1-d0decd9aac21",
+  "playerId" : "e7c39740-ca7f-4dee-91a9-8cb140554207",
+  "fullName" : "Federico Chiesa",
+  "fieldLocation" : "Forward",
+  "birthYear" : 2002,
+  "squadNumber" : 14,
+  "goals" : 1
+}, {
+  "teamId" : "ad2e4982-b1ce-445d-9c5a-bdc80a43e269",
+  "playerId" : "588ae2c7-dbcf-4364-b03d-a3de56ad40f1",
+  "fullName" : "Pedri González",
+  "fieldLocation" : "Midfielder",
+  "birthYear" : 2002,
+  "squadNumber" : 8,
+  "goals" : 2
+}, {
+  "teamId" : "8a219b29-c51e-4c78-9f07-e696eab20502",
+  "playerId" : "107dc9cb-5134-4881-8a52-2b63a34029a9",
+  "fullName" : "Marco Asensio",
+  "fieldLocation" : "Forward",
+  "birthYear" : 1996,
+  "squadNumber" : 20,
+  "goals" : 0
+}, {
+  "teamId" : "8a219b29-c51e-4c78-9f07-e696eab20502",
+  "playerId" : "4acea433-1d40-4252-ade6-b7d2707360f5",
+  "fullName" : "Endrick",
+  "fieldLocation" : "Forward",
+  "birthYear" : 2006,
+  "squadNumber" : 9,
+  "goals" : 0
+}, {
+  "teamId" : "8a219b29-c51e-4c78-9f07-e696eab20502",
+  "playerId" : "9a94a1ff-be0a-42e9-9441-7d3ee5761d9e",
+  "fullName" : "Arda Güler",
+  "fieldLocation" : "Midfielder",
+  "birthYear" : 2004,
+  "squadNumber" : 21,
+  "goals" : 0
+}, {
+  "teamId" : "8a219b29-c51e-4c78-9f07-e696eab20502",
+  "playerId" : "b249ac8f-44fc-4f95-b894-96a4a465cd1b",
+  "fullName" : "Dani Ceballos",
+  "fieldLocation" : "Midfielder",
+  "birthYear" : 1996,
+  "squadNumber" : 8,
+  "goals" : 0
+}, {
+  "teamId" : "ad2e4982-b1ce-445d-9c5a-bdc80a43e269",
+  "playerId" : "7c493a79-ee7a-4b74-824b-8dbacce1918c",
+  "fullName" : "Lamine Yamal",
+  "fieldLocation" : "Forward",
+  "birthYear" : 2007,
+  "squadNumber" : 10,
+  "goals" : 2
+}, {
+  "teamId" : "ad2e4982-b1ce-445d-9c5a-bdc80a43e269",
+  "playerId" : "933ac459-6ecb-40d5-9810-9ed665a01e7d",
+  "fullName" : "Raphinha",
+  "fieldLocation" : "Forward",
+  "birthYear" : 1998,
+  "squadNumber" : 11,
+  "goals" : 1
+}, {
+  "teamId" : "8a219b29-c51e-4c78-9f07-e696eab20502",
+  "playerId" : "55a39494-7e6f-4880-84d3-5cbef0ad6eb7",
+  "fullName" : "Nacho Fernández",
+  "fieldLocation" : "Centre-back",
+  "birthYear" : 1990,
+  "squadNumber" : 6,
+  "goals" : 0
+}, {
+  "teamId" : "ad2e4982-b1ce-445d-9c5a-bdc80a43e269",
+  "playerId" : "611e6751-4af2-457e-89d2-986b60a648b3",
+  "fullName" : "Ferran Torres",
+  "fieldLocation" : "Forward",
+  "birthYear" : 1997,
+  "squadNumber" : 7,
+  "goals" : 2
+}, {
+  "teamId" : "8a219b29-c51e-4c78-9f07-e696eab20502",
+  "playerId" : "415b1863-b646-45d1-a71e-ccb03805edb4",
+  "fullName" : "Jude Bellingham",
+  "fieldLocation" : "Midfielder",
+  "birthYear" : 2003,
+  "squadNumber" : 5,
+  "goals" : 0
+}, {
+  "teamId" : "8a219b29-c51e-4c78-9f07-e696eab20502",
+  "playerId" : "6c294001-3005-4ece-96b2-95e415759673",
+  "fullName" : "Dani Carvajal",
+  "fieldLocation" : "Righ-back",
+  "birthYear" : 1992,
+  "squadNumber" : 2,
+  "goals" : 0
+}, {
+  "teamId" : "8a219b29-c51e-4c78-9f07-e696eab20502",
+  "playerId" : "65845faa-af9f-47fb-9d7b-55f87b59a4e5",
+  "fullName" : "Ferland Mendy",
+  "fieldLocation" : "Left-back",
+  "birthYear" : 1995,
+  "squadNumber" : 23,
+  "goals" : 0
+}, {
+  "teamId" : "285d4795-c21b-4d85-b8f1-d0decd9aac21",
+  "playerId" : "33de7e32-53dc-4b69-9690-c00dc4361307",
+  "fullName" : "Virgil Van Dijk",
+  "fieldLocation" : "Centre-back",
+  "birthYear" : 1991,
+  "squadNumber" : 4,
+  "goals" : 1
+}, {
+  "teamId" : "ad2e4982-b1ce-445d-9c5a-bdc80a43e269",
+  "playerId" : "f20bb0bc-c80c-40ab-a030-30084d93b14d",
+  "fullName" : "Robert Lewandowski",
+  "fieldLocation" : "Forward",
+  "birthYear" : 1988,
+  "squadNumber" : 9,
+  "goals" : 1
+}, {
+  "teamId" : "8a219b29-c51e-4c78-9f07-e696eab20502",
+  "playerId" : "b42ede15-4851-4f86-ad83-60b52f4b4e29",
+  "fullName" : "Joselu",
+  "fieldLocation" : "Forward",
+  "birthYear" : 1990,
+  "squadNumber" : 11,
+  "goals" : 0
+}, {
+  "teamId" : "8a219b29-c51e-4c78-9f07-e696eab20502",
+  "playerId" : "0f53df13-8c00-4785-84db-b873f8f6d822",
+  "fullName" : "Aurélien Tchouaméni",
+  "fieldLocation" : "Midfielder",
+  "birthYear" : 2000,
+  "squadNumber" : 14,
+  "goals" : 0
+} ]

@@ -2,6 +2,7 @@ import events.*;
 import events.bus.EventBus;
 import model.Player;
 import model.Team;
+import persistence.DataSerializer;
 import persistence.SnapshotSerializer;
 import persistence.FilePersistenceListener;
 import repository.InMemoryTeamRepository;
@@ -36,7 +37,7 @@ public class Main {
         Path playersJson = Path.of(PLAYERS_JSON_PATH);
 
         //SoccerDatabase database = new CsvSoccerDatabase(teamCsv, playerCsv);
-        SnapshotSerializer serializer = new SnapshotSerializer(teamsCsv, playersCsv, teamsJson, playersJson);
+        DataSerializer serializer = new SnapshotSerializer(teamsCsv, playersCsv, teamsJson, playersJson);
 
         // Create main.java.repository and preload teams from main.java.persistence.
         InMemoryTeamRepository memoryRepo = new InMemoryTeamRepository();
@@ -44,14 +45,9 @@ public class Main {
         // Attempt to load data from JSON, falling back to CSV
         try {
             System.out.println("Cargando datos...");
-            List<Team> loadedTeams = serializer.loadTeamsSnapshotFromJson();
-            List<Player> loadedPlayers = serializer.loadPlayersSnapshotFromJson();
+            List<Team> loadedTeams = serializer.loadTeams();
+            List<Player> loadedPlayers = serializer.loadPlayers();
 
-            if (loadedTeams.isEmpty() || loadedPlayers.isEmpty()) {
-                System.out.println("Datos JSON no encontrados o vacíos. Intentando cargar CSV...");
-                loadedTeams = serializer.loadTeamsSnapshotFromCsv();
-                loadedPlayers = serializer.loadPlayersSnapshotFromCsv();
-            }
             // Persist loaded teams to main.java.repository
             memoryRepo.saveTeams(loadedTeams);
             memoryRepo.savePlayers(loadedPlayers);
