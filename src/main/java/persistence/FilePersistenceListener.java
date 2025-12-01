@@ -8,7 +8,6 @@ import repository.PlayerRepository;
 import repository.TeamRepository;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -59,14 +58,14 @@ public class FilePersistenceListener implements DomainEventListener<DomainEvent>
             serializer.saveSnapshotToCsv(teams, players);
             serializer.saveSnapshotToJson(teams, players);
         } catch (IOException e) {
-            // If persistence fails we log to stderr but do not throw further
+            // If main.java.persistence fails we log to stderr but do not throw further
             System.err.println("Error al guardar datos: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
     /**
-     * Shuts down the scheduler service. Call this when the application
+     * Shuts down the scheduler main.java.service. Call this when the application
      * terminates to ensure no threads remain.
      */
     public void shutdown() {

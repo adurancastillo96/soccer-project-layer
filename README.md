@@ -20,16 +20,16 @@ Este proyecto es una aplicación de gestión de equipos de fútbol desarrollada 
 
 El proyecto sigue una estricta separación de responsabilidades:
 
-1.  **Capa de Presentación (UI):** (`ui`)
+1.  **Capa de Presentación (UI):** (`main.java.ui`)
     * Maneja la interacción con el usuario a través de la consola.
     * **Componentes:** `ConsoleMenu`, `AppController`.
-2.  **Capa de Aplicación (Service):** (`service`)
+2.  **Capa de Aplicación (Service):** (`main.java.service`)
     * Orquesta los flujos de trabajo y aplica reglas de negocio.
     * **Componentes:** `TeamServiceImpl`, `PlayerServiceImpl`.
-3.  **Capa de Dominio (Model & Events):** (`model`, `events`, `domain`)
+3.  **Capa de Dominio (Model & Events):** (`main.java.model`, `main.java.events`, `main.java.domain`)
     * Contiene las entidades (`Team`, `Player`) y los eventos del dominio (`TeamCreatedEvent`, etc.).
     * Define las excepciones de negocio (`DomainException`).
-4.  **Capa de Infraestructura (Persistence & Repository):** (`repository`, `persistence`)
+4.  **Capa de Infraestructura (Persistence & Repository):** (`main.java.repository`, `main.java.persistence`)
     * Implementa el almacenamiento de datos.
     * **Componentes:** `InMemoryTeamRepository` (Memoria), `SnapshotSerializer` (Archivos).
 
@@ -57,16 +57,16 @@ graph LR
 
 ```text
 src/
-├── domain/           # Excepciones y Enums de errores (Rules)
-├── events/           # Definición de Eventos de Dominio
+├── main.java.domain/           # Excepciones y Enums de errores (Rules)
+├── main.java.events/           # Definición de Eventos de Dominio
 │   └── bus/          # Implementación del EventBus y Listeners
-├── model/            # Entidades: Team y Player
-├── persistence/      # Serialización CSV/JSON y Listener de guardado
-├── repository/       # Interfaces e implementación en memoria
-├── service/          # Lógica de negocio (Interfaces e Impl)
-├── ui/               # Menú de consola y controladores
-├── util/             # Utilidades (Generador de UUIDs)
-└── Main.java         # Punto de entrada y configuración de dependencias
+├── main.java.model/            # Entidades: Team y Player
+├── main.java.persistence/      # Serialización CSV/JSON y Listener de guardado
+├── main.java.repository/       # Interfaces e implementación en memoria
+├── main.java.service/          # Lógica de negocio (Interfaces e Impl)
+├── main.java.ui/               # Menú de consola y controladores
+├── main.java.util/             # Utilidades (Generador de UUIDs)
+└── main.java.Main.java         # Punto de entrada y configuración de dependencias
 ```
 
 -----
@@ -87,7 +87,7 @@ src/
 2.  **Estructura de Datos:**
     Asegúrate de que existe la carpeta `data/` en la raíz del proyecto. El sistema buscará `teams.csv` y `players.csv` para la carga inicial.
 3.  **Compilar y Correr:**
-    Ejecuta la clase `src/Main.java`.
+    Ejecuta la clase `src/main.java.Main.java`.
 
 -----
 
@@ -135,7 +135,7 @@ Simula un encuentro entre dos equipos basándose en sus plantillas:
     Implementación propia de un Bus de Eventos usando `ExecutorService` y `ConcurrentHashMap` para manejar suscriptores. Permite que la UI siga respondiendo mientras se guarda en disco en segundo plano.
 
 2.  **Inyección de Dependencias Manual:**
-    En `Main.java`, las dependencias se inyectan manualmente (Constructor Injection), demostrando cómo funcionan los frameworks como Spring "por debajo".
+    En `main.java.Main.java`, las dependencias se inyectan manualmente (Constructor Injection), demostrando cómo funcionan los frameworks como Spring "por debajo".
 
 3.  **Manejo de JSON Artesanal:**
     Incluye un parser y generador JSON simple (`JsonParser` inner class en `SnapshotSerializer`) escrito desde cero, sin librerías como Jackson o Gson.

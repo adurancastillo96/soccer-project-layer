@@ -22,6 +22,10 @@ public class Player {
     private int birthYear, squadNumber, goals;
 
     // ---------- CONSTRUCTOR ----------
+    public Player() {
+        // constructor vacío, requerido por Jackson.
+    }
+
     public Player(UUID teamId, String fullName, int birthYear, String fieldLocation, int squadNumber) {
         this.setTeamId(teamId);
         this.playerId = UUID.randomUUID();

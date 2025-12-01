@@ -16,6 +16,10 @@ public class Team {
     private int matchesWon;
 
     // -------- CONSTRUCTOR --------
+    public Team() {
+        // constructor vacío, requerido por Jackson.
+    }
+
     public Team(String name, String city, String coach, String formation) {
         this.teamId = UUID.randomUUID();
         this.setName(name);

@@ -23,7 +23,7 @@ public class EventBus {
      * Subscribes the given listener to the specified type of event.
      *
      * @param eventType the type of event to listen for
-     * @param listener  the listener to notify when events of the given type are published
+     * @param listener  the listener to notify when main.java.events of the given type are published
      * @param <E>       the generic event type
      */
     public <E extends DomainEvent> void subscribe(Class<E> eventType, DomainEventListener<? super E> listener) {
@@ -58,7 +58,7 @@ public class EventBus {
 
     /**
      * Attempts to gracefully shut down the event bus, waiting for currently
-     * queued events to be delivered. This method should be called when the
+     * queued main.java.events to be delivered. This method should be called when the
      * application is exiting to allow asynchronous tasks to complete.
      */
     public void shutdown() {

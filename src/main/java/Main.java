@@ -38,7 +38,7 @@ public class Main {
         //SoccerDatabase database = new CsvSoccerDatabase(teamCsv, playerCsv);
         SnapshotSerializer serializer = new SnapshotSerializer(teamsCsv, playersCsv, teamsJson, playersJson);
 
-        // Create repository and preload teams from persistence.
+        // Create main.java.repository and preload teams from main.java.persistence.
         InMemoryTeamRepository memoryRepo = new InMemoryTeamRepository();
 
         // Attempt to load data from JSON, falling back to CSV
@@ -52,7 +52,7 @@ public class Main {
                 loadedTeams = serializer.loadTeamsSnapshotFromCsv();
                 loadedPlayers = serializer.loadPlayersSnapshotFromCsv();
             }
-            // Persist loaded teams to repository
+            // Persist loaded teams to main.java.repository
             memoryRepo.saveTeams(loadedTeams);
             memoryRepo.savePlayers(loadedPlayers);
             System.out.println("Carga completada: " + loadedTeams.size() + " equipos y " + loadedPlayers.size() + " jugadores.");
