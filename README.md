@@ -1,4 +1,5 @@
 # ⚽ Soccer Manager (Layered Architecture Project)
+![Build Status](https://github.com/adurancastillo96/soccer-project-layer/actions/workflows/build.yml/badge.svg?branch=feature/gradle-migration)
 
 Este proyecto es una aplicación de gestión de equipos de fútbol desarrollada en **Java**. Demuestra una **Arquitectura en Capas (Layered Architecture)** robusta y moderna, utilizando **Gradle** para la gestión de dependencias y un diseño orientado a eventos (**Event-Driven**) para desacoplar la lógica de negocio.
 
