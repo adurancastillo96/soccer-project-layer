@@ -2,6 +2,8 @@ import events.*;
 import events.bus.EventBus;
 import model.Player;
 import model.Team;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import persistence.DataSerializer;
 import persistence.SnapshotSerializer;
 import persistence.FilePersistenceListener;
@@ -21,6 +23,9 @@ import java.util.List;
 import java.util.Properties;
 
 public class Main {
+
+    // AÑADE EL LOGGER
+    private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) {
 
@@ -65,17 +70,17 @@ public class Main {
 
         // Attempt to load data from JSON, falling back to CSV
         try {
-            System.out.println("Cargando datos...");
+            logger.info("Iniciando carga de datos desde: {}", teamsJson);
+            logger.info("Iniciando carga de datos desde: {}", playersJson);
             List<Team> loadedTeams = serializer.loadTeams();
             List<Player> loadedPlayers = serializer.loadPlayers();
 
             // Persist loaded teams to main.java.repository
             memoryRepo.saveTeams(loadedTeams);
             memoryRepo.savePlayers(loadedPlayers);
-            System.out.println("Carga completada: " + loadedTeams.size() + " equipos y " + loadedPlayers.size() + " jugadores.");
-
+            logger.info("Carga completada: {} equipos y {} jugadores.", loadedTeams.size(), loadedPlayers.size());
         } catch (Exception e) {
-            System.err.println("Advertencia: No se pudo cargar la información guardada: " + e.getMessage());
+            logger.error("Fallo crítico al cargar datos iniciales", e);
         }
 
         /** Inicializar objetos*/

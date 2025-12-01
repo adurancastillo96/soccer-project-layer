@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import model.Player;
 import model.Team;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -28,6 +30,7 @@ import java.util.UUID;
  * produced by {@code toJson}.
  */
 public class SnapshotSerializer implements DataSerializer {
+    private static final Logger logger = LoggerFactory.getLogger(SnapshotSerializer.class);
     private final Path teamsCsvPath;
     private final Path playersCsvPath;
     private final Path teamsJsonPath;
@@ -64,7 +67,7 @@ public class SnapshotSerializer implements DataSerializer {
 
         // Si no hay datos (o archivo no existe), intentamos CSV (Fallback)
         if (teams.isEmpty()) {
-            System.out.println("(Log interno) JSON de equipos vacío o no existente. Intentando cargar desde CSV...");
+            logger.warn("JSON de equipos vacío. Aplicando fallback a CSV.");
             teams = loadTeamsSnapshotFromCsv();
         }
         return teams;
@@ -77,7 +80,7 @@ public class SnapshotSerializer implements DataSerializer {
 
         // Fallback a CSV
         if (players.isEmpty()) {
-            System.out.println("(Log interno) JSON de jugadores vacío o no existente. Intentando cargar desde CSV...");
+            logger.warn("JSON de jugadores vacío. Aplicando fallback a CSV.");
             players = loadPlayersSnapshotFromCsv();
         }
         return players;
