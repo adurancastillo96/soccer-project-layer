@@ -55,6 +55,8 @@ public class Team {
         this.matchesWon = matchesWon;
     }
 
+    public void incrementMatchesWon() { this.matchesWon++; }
+
     // -------- UTILIDADES --------
     private static String validateText(String value) {
         if (value == null || value.isBlank()) throw new DomainException(DomainErrorCode.VALIDATION_ERROR, "Entrada inválida.");
@@ -66,7 +68,8 @@ public class Team {
         return trimmed;
     }
 
-    public String getSummary() {
+    @Override
+    public String toString() {
         return String.format("Información del equipo:\n" +
                         "- Equipo ID: %s\n" +
                         "- Nombre: %s\n" +
@@ -75,13 +78,5 @@ public class Team {
                         "- Formación: %s\n" +
                         "- Victorias: %d",
                 teamId, name, city, coach, formation, matchesWon);
-    }
-
-    // -------- METODOS --------
-    public void incrementMatchesWon() { this.matchesWon++; }
-
-    @Override
-    public String toString() {
-        return this.getSummary();
     }
 }

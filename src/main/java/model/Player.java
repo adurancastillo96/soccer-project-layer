@@ -113,7 +113,8 @@ public class Player {
 
     public void incrementGoals() { this.setGoals(this.goals + 1); }
 
-    public String getSummary() {
+    @Override
+    public String toString() {
         return String.format("Información del jugador:\n" +
                         "- Equipo ID: %s\n" +
                         "- Jugador ID: %s\n" +
@@ -123,11 +124,6 @@ public class Player {
                         "- Dorsal: %d\n" +
                         "- Goles: %d",
                 this.teamId, this.playerId, this.fullName, this.birthYear, this.fieldLocation, this.squadNumber, this.goals);
-    }
-
-    @Override
-    public String toString() {
-        return this.getSummary();
     }
 
 }
