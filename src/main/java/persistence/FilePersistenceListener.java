@@ -57,8 +57,12 @@ public class FilePersistenceListener implements DomainEventListener<DomainEvent>
     private void saveSnapshot() {
         List<Team> teams = teamRepository.findAllTeams();
         List<Player> players = playerRepository.findAllPlayers();
+
+        // Empaquetar
+        SoccerData snapshot = new SoccerData(teams, players);
+
         try {
-            serializer.save(teams, players);
+            serializer.save(snapshot);
             logger.debug("Snapshot guardado correctamente en disco.");
         } catch (IOException e) {
             // If persistence fails we log to stderr but do not throw further

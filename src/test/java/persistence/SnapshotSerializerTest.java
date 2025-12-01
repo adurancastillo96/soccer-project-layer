@@ -42,10 +42,11 @@ class SnapshotSerializerTest {
 
         List<Team> teamsToSave = List.of(team);
         List<Player> playersToSave = List.of(player);
+        SoccerData data = new SoccerData(teamsToSave, playersToSave);
 
         // 2. EJECUCIÓN (Act)
         // Guardamos
-        serializer.save(teamsToSave, playersToSave);
+        serializer.save(data);
 
         // 3. VERIFICACIÓN (Assert)
         // A. Verificar que el archivo físico existe
@@ -55,20 +56,19 @@ class SnapshotSerializerTest {
         assertTrue(Files.exists(playersCsv), "Debería existir el CSV de jugadores (backup)");
 
         // B. Cargar los datos desde el archivo recién creado
-        List<Team> loadedTeams = serializer.loadTeams();
-        List<Player> loadedPlayers = serializer.loadPlayers();
+        SoccerData dataLoaded = serializer.load();
 
         // C. Comprobar que los datos cargados son iguales a los guardados
-        assertNotNull(loadedTeams);
-        assertEquals(1, loadedTeams.size());
-        Team loadedTeam = loadedTeams.get(0);
+        assertNotNull(dataLoaded.getTeams());
+        assertEquals(1, dataLoaded.getTeams().size());
+        Team loadedTeam = dataLoaded.getTeams().get(0);
         assertEquals(team.getTeamId(), loadedTeam.getTeamId());
         assertEquals("Test FC", loadedTeam.getName());
         assertEquals(1, loadedTeam.getMatchesWon());
 
-        assertNotNull(loadedPlayers);
-        assertEquals(1, loadedPlayers.size());
-        Player loadedPlayer = loadedPlayers.get(0);
+        assertNotNull(dataLoaded.getPlayers());
+        assertEquals(1, dataLoaded.getPlayers().size());
+        Player loadedPlayer = dataLoaded.getPlayers().get(0);
         assertEquals(player.getPlayerId(), loadedPlayer.getPlayerId());
         assertEquals("Test Player", loadedPlayer.getFullName());
         assertEquals(1, loadedPlayer.getGoals());

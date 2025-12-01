@@ -1,12 +1,11 @@
 import events.*;
 import events.bus.EventBus;
-import model.Player;
-import model.Team;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import persistence.DataSerializer;
 import persistence.SnapshotSerializer;
 import persistence.FilePersistenceListener;
+import persistence.SoccerData;
 import repository.InMemoryTeamRepository;
 import service.PlayerService;
 import service.TeamService;
@@ -70,15 +69,16 @@ public class Main {
 
         // Attempt to load data from JSON, falling back to CSV
         try {
-            logger.info("Iniciando carga de datos desde: {}", teamsJson);
-            logger.info("Iniciando carga de datos desde: {}", playersJson);
-            List<Team> loadedTeams = serializer.loadTeams();
-            List<Player> loadedPlayers = serializer.loadPlayers();
+            logger.info("Iniciando carga del sistema...");
+
+            // Carga atómica: o todo o nada (o lo que haya podido recuperar el serializer)
+            SoccerData data = serializer.load();
 
             // Persist loaded teams to repository
-            memoryRepo.saveTeams(loadedTeams);
-            memoryRepo.savePlayers(loadedPlayers);
-            logger.info("Carga completada: {} equipos y {} jugadores.", loadedTeams.size(), loadedPlayers.size());
+            memoryRepo.saveTeams(data.getTeams());
+            memoryRepo.savePlayers(data.getPlayers());
+            logger.info("Carga completada: {} equipos y {} jugadores.",
+                    data.getTeams().size(), data.getPlayers().size());
         } catch (Exception e) {
             logger.error("Fallo crítico al cargar datos iniciales", e);
         }

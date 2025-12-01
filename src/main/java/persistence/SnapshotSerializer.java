@@ -54,36 +54,35 @@ public class SnapshotSerializer implements DataSerializer {
     // ======================================================
 
     @Override
-    public void save(List<Team> teams, List<Player> players) throws IOException {
+    public void save(SoccerData data) throws IOException {
         // Guardamos en AMBOS formatos para seguridad (como hacías antes)
-        saveSnapshotToJson(teams, players);
-        saveSnapshotToCsv(teams, players);
+        saveSnapshotToJson(data.getTeams(), data.getPlayers());
+        saveSnapshotToCsv(data.getTeams(), data.getPlayers());
     }
 
     @Override
-    public List<Team> loadTeams() throws IOException {
+    public SoccerData load() throws IOException {
         // Estrategia: Intentar JSON primero
         List<Team> teams = loadTeamsSnapshotFromJson();
+        List<Player> players = loadPlayersSnapshotFromJson();
 
         // Si no hay datos (o archivo no existe), intentamos CSV (Fallback)
         if (teams.isEmpty()) {
             logger.warn("JSON de equipos vacío. Aplicando fallback a CSV.");
             teams = loadTeamsSnapshotFromCsv();
         }
-        return teams;
-    }
-
-    @Override
-    public List<Player> loadPlayers() throws IOException {
-        // Estrategia: Intentar JSON primero
-        List<Player> players = loadPlayersSnapshotFromJson();
 
         // Fallback a CSV
         if (players.isEmpty()) {
             logger.warn("JSON de jugadores vacío. Aplicando fallback a CSV.");
             players = loadPlayersSnapshotFromCsv();
         }
-        return players;
+
+        // Validar integridad referencial
+        List<Team> finalTeams = teams;
+        players.removeIf(p -> finalTeams.stream().noneMatch(t -> t.getTeamId().equals(p.getTeamId())));
+
+        return new SoccerData(finalTeams, players);
     }
 
     // ==========================================
