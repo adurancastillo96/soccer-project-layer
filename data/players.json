@@ -93,7 +93,7 @@
   "fieldLocation" : "Forward",
   "birthYear" : 1992,
   "squadNumber" : 11,
-  "goals" : 5
+  "goals" : 6
 }, {
   "teamId" : "285d4795-c21b-4d85-b8f1-d0decd9aac21",
   "playerId" : "e7c39740-ca7f-4dee-91a9-8cb140554207",
@@ -109,7 +109,7 @@
   "fieldLocation" : "Midfielder",
   "birthYear" : 2002,
   "squadNumber" : 8,
-  "goals" : 2
+  "goals" : 3
 }, {
   "teamId" : "8a219b29-c51e-4c78-9f07-e696eab20502",
   "playerId" : "107dc9cb-5134-4881-8a52-2b63a34029a9",
@@ -213,7 +213,7 @@
   "fieldLocation" : "Forward",
   "birthYear" : 1988,
   "squadNumber" : 9,
-  "goals" : 1
+  "goals" : 2
 }, {
   "teamId" : "8a219b29-c51e-4c78-9f07-e696eab20502",
   "playerId" : "b42ede15-4851-4f86-ad83-60b52f4b4e29",

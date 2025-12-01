@@ -2,6 +2,8 @@ package ui;
 
 import events.*;
 import events.bus.DomainEventListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Listener that provides immediate console feedback for main.java.domain main.java.events. It
@@ -10,16 +12,20 @@ import events.bus.DomainEventListener;
  * that the UI remains responsive.
  */
 public class UiEventListener implements DomainEventListener<DomainEvent> {
+
+    private static final Logger logger = LoggerFactory.getLogger(UiEventListener.class);
+
     @Override
     public void onEvent(DomainEvent event) {
         if (event instanceof TeamCreatedEvent tc) {
-            System.out.println("\n[INFO] Equipo creado: " + tc.getName() + " (" + tc.getTeamId() + ")");
+            logger.info("Equipo creado: {} ({})", tc.getName(), tc.getTeamId());
         } else if (event instanceof TeamDeletedEvent tr) {
-            System.out.println("\n[INFO] Equipo eliminado: " + tr.getName() + " (" + tr.getTeamId() + ")");
+            logger.info("Equipo eliminado: {} ({})", tr.getName(), tr.getTeamId());
         } else if (event instanceof PlayerAddedToTeamEvent pa) {
-            System.out.println("\n[INFO] Jugador añadido: " + pa.getPlayerId() + " al equipo " + pa.getTeamId() + " con dorsal " + pa.getSquadNumber());
+            logger.info("Jugador añadido: {} al equipo {} (Dorsal {})",
+                    pa.getPlayerId(), pa.getTeamId(), pa.getSquadNumber());
         } else if (event instanceof PlayerDeletedFromTeamEvent pr) {
-            System.out.println("\n[INFO] Jugador eliminado: " + pr.getPlayerId() + " del equipo " + pr.getTeamId());
+            logger.info("Jugador eliminado: {} del equipo {}", pr.getPlayerId(), pr.getTeamId());
         } else if (event instanceof MatchSimulatedEvent ms) {
             // Determine outcome
             String result;
@@ -30,7 +36,8 @@ public class UiEventListener implements DomainEventListener<DomainEvent> {
             } else {
                 result = "Empate";
             }
-            System.out.println("\n[INFO] Partido simulado: " + ms.getTeamAId() + " " + ms.getGoalsA() + " - " + ms.getGoalsB() + " " + ms.getTeamBId() + " (" + result + ")");
+            logger.info("Partido simulado: {} [{}-{}] {} -> Resultado: {}",
+                    ms.getTeamAId(), ms.getGoalsA(), ms.getGoalsB(), ms.getTeamBId(), result);
         }
     }
 }

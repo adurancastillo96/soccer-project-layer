@@ -4,6 +4,8 @@ import events.DomainEvent;
 import events.bus.DomainEventListener;
 import model.Player;
 import model.Team;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import repository.PlayerRepository;
 import repository.TeamRepository;
 
@@ -16,6 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 public class FilePersistenceListener implements DomainEventListener<DomainEvent> {
 
+    private static final Logger logger = LoggerFactory.getLogger(FilePersistenceListener.class);
     private final PlayerRepository playerRepository;
     private final TeamRepository teamRepository;
     private final DataSerializer serializer;
@@ -56,10 +59,10 @@ public class FilePersistenceListener implements DomainEventListener<DomainEvent>
         List<Player> players = playerRepository.findAllPlayers();
         try {
             serializer.save(teams, players);
+            logger.debug("Snapshot guardado correctamente en disco.");
         } catch (IOException e) {
             // If main.java.persistence fails we log to stderr but do not throw further
-            System.err.println("Error al guardar datos: " + e.getMessage());
-            e.printStackTrace();
+            logger.error("Fallo crítico al guardar el snapshot en disco", e);
         }
     }
 
