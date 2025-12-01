@@ -14,27 +14,48 @@ import ui.AppController;
 import ui.ConsoleMenu;
 import ui.UiEventListener;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Properties;
 
 public class Main {
 
-    // --- CONSTANTES DE CONFIGURACIÓN ---
-    private static final String TEAMS_CSV_PATH = "data/teams.csv";
-    private static final String PLAYERS_CSV_PATH = "data/players.csv";
-    private static final String TEAMS_JSON_PATH = "data/teams.json";
-    private static final String PLAYERS_JSON_PATH = "data/players.json";
-
-    // Tiempo de espera para guardar en disco tras un evento (Debounce)
-    private static final long PERSISTENCE_DEBOUNCE_MS = 300;
-
     public static void main(String[] args) {
 
-        // Configure file paths relative to the working directory
-        Path teamsCsv = Path.of(TEAMS_CSV_PATH);
-        Path playersCsv = Path.of(PLAYERS_CSV_PATH);
-        Path teamsJson = Path.of(TEAMS_JSON_PATH);
-        Path playersJson = Path.of(PLAYERS_JSON_PATH);
+        // CARGAR CONFIGURACIÓN (application.properties)
+        Properties prop = new Properties();
+        try (InputStream input = Main.class.getClassLoader().getResourceAsStream("application.properties")) {
+            if (input == null) {
+                System.err.println("Lo siento, no se pudo encontrar application.properties");
+                return;
+            }
+            prop.load(input);
+        } catch (IOException ex) {
+            System.err.println("Error al cargar la configuración: " + ex.getMessage());
+            return;
+        }
+
+        // Leer valores del fichero (o usar valores por defecto si no existen)
+        String teamsCsvPathStr = prop.getProperty("data.path.teams.csv", "data/teams.csv");
+        String playersCsvPathStr = prop.getProperty("data.path.players.csv", "data/players.csv");
+        String teamsJsonPathStr = prop.getProperty("data.path.teams.json", "data/teams.json");
+        String playersJsonPathStr = prop.getProperty("data.path.players.json", "data/players.json");
+
+        long debounceMs;
+        try {
+            debounceMs = Long.parseLong(prop.getProperty("persistence.debounce.ms", "300"));
+        } catch (NumberFormatException e) {
+            debounceMs = 300; // Valor por defecto seguro
+            System.err.println("Advertencia: Valor de debounce inválido en config, usando 300ms.");
+        }
+
+        // CONFIGURAR RUTAS
+        Path teamsCsv = Path.of(teamsCsvPathStr);
+        Path playersCsv = Path.of(playersCsvPathStr);
+        Path teamsJson = Path.of(teamsJsonPathStr);
+        Path playersJson = Path.of(playersJsonPathStr);
 
         //SoccerDatabase database = new CsvSoccerDatabase(teamCsv, playerCsv);
         DataSerializer serializer = new SnapshotSerializer(teamsCsv, playersCsv, teamsJson, playersJson);
@@ -71,7 +92,7 @@ public class Main {
                 memoryRepo,
                 memoryRepo,
                 serializer,
-                PERSISTENCE_DEBOUNCE_MS);
+                debounceMs);
 
         /** Subscribir cada tipo de evento explicitamente*/
         eventBus.subscribe(TeamCreatedEvent.class, uiEventListener);
