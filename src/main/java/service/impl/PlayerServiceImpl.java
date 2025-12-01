@@ -16,7 +16,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class PlayerServiceImpl implements PlayerService {
-    private PlayerRepository playerRepository;
+    private final PlayerRepository playerRepository;
     private final TeamRepository teamRepository;
     private final EventBus eventBus;
 

@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Listener that provides immediate console feedback for main.java.domain main.java.events. It
+ * Listener that provides immediate console feedback for domain events. It
  * reacts to every published event and prints a human-friendly message to
  * standard output. Running on its own executor via the event bus ensures
  * that the UI remains responsive.

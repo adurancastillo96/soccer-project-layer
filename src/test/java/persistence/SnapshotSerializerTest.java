@@ -29,6 +29,7 @@ class SnapshotSerializerTest {
         Path teamsJson = tempDir.resolve("teams.json");
         Path playersJson = tempDir.resolve("players.json");
 
+        // Instanciamos la clase concreta, pero probaremos sus métodos públicos
         SnapshotSerializer serializer = new SnapshotSerializer(teamsCsv, playersCsv, teamsJson, playersJson);
 
         // Creamos datos de prueba
@@ -44,16 +45,18 @@ class SnapshotSerializerTest {
 
         // 2. EJECUCIÓN (Act)
         // Guardamos
-        serializer.saveSnapshotToJson(teamsToSave, playersToSave);
+        serializer.save(teamsToSave, playersToSave);
 
         // 3. VERIFICACIÓN (Assert)
         // A. Verificar que el archivo físico existe
         assertTrue(Files.exists(teamsJson), "El archivo teams.json debería haberse creado");
         assertTrue(Files.exists(playersJson), "El archivo players.json debería haberse creado");
+        assertTrue(Files.exists(teamsCsv), "Debería existir el CSV de equipos (backup)");
+        assertTrue(Files.exists(playersCsv), "Debería existir el CSV de jugadores (backup)");
 
         // B. Cargar los datos desde el archivo recién creado
-        List<Team> loadedTeams = serializer.loadTeamsSnapshotFromJson();
-        List<Player> loadedPlayers = serializer.loadPlayersSnapshotFromJson();
+        List<Team> loadedTeams = serializer.loadTeams();
+        List<Player> loadedPlayers = serializer.loadPlayers();
 
         // C. Comprobar que los datos cargados son iguales a los guardados
         assertNotNull(loadedTeams);

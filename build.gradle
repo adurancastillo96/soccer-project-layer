@@ -38,7 +38,7 @@ dependencies {
 
 // Configuración de la aplicación principal
 application {
-    // Como Main.java no tiene 'package', se pone solo 'Main'
+    // Se pone solo 'Main'
     mainClass = 'Main'
 }
 

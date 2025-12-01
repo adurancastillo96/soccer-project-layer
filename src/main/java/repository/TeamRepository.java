@@ -14,7 +14,7 @@ import java.util.Optional;
 public interface TeamRepository {
 
     /**
-     * Persists the given team in the main.java.repository. If a team with the same ID
+     * Persists the given team in the repository. If a team with the same ID
      * already exists it is replaced.
      *
      * @param team the team to save
@@ -32,14 +32,14 @@ public interface TeamRepository {
     Optional<Team> findTeam(UUID teamId);
 
     /**
-     * Removes the team with the given identifier from the main.java.repository.
+     * Removes the team with the given identifier from the repository.
      *
      * @param teamId the team's unique identifier
      */
     void deleteTeam(UUID teamId);
 
     /**
-     * Returns a collection of all teams in the main.java.repository.
+     * Returns a collection of all teams in the repository.
      *
      * @return all teams
      */

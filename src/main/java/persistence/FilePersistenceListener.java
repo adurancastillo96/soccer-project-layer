@@ -61,13 +61,13 @@ public class FilePersistenceListener implements DomainEventListener<DomainEvent>
             serializer.save(teams, players);
             logger.debug("Snapshot guardado correctamente en disco.");
         } catch (IOException e) {
-            // If main.java.persistence fails we log to stderr but do not throw further
+            // If persistence fails we log to stderr but do not throw further
             logger.error("Fallo crítico al guardar el snapshot en disco", e);
         }
     }
 
     /**
-     * Shuts down the scheduler main.java.service. Call this when the application
+     * Shuts down the scheduler service. Call this when the application
      * terminates to ensure no threads remain.
      */
     public void shutdown() {

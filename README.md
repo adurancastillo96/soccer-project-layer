@@ -107,7 +107,7 @@ El sistema utiliza una estrategia de persistencia atómica tolerante a fallos:
 
 ## 🧩 Detalles Técnicos Destacados
 
-1.  **Inyección de Dependencias Manual:** En `Main.java`, las dependencias se inyectan manualmente, demostrando el principio de Inversión de Control sin frameworks pesados.
+1.  **Inyección de Dependencias Manual:** En `src`, las dependencias se inyectan manualmente, demostrando el principio de Inversión de Control sin frameworks pesados.
 2.  **Event Bus Personalizado:** Implementación propia de un Bus de Eventos asíncrono para notificaciones UI y persistencia en segundo plano.
 3.  **Clean Code:** Código refactorizado siguiendo principios SOLID, eliminando "code smells" y utilizando convenciones de nombres consistentes.
 
