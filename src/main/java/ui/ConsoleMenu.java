@@ -7,16 +7,13 @@ public class ConsoleMenu {
     // --- PRINCIPALES ATRIBUTOS ---
     private final AppController controller;
     private final Scanner scanner;
-    private final Runnable onExit;
     private boolean running = true;
 
     // --- CONSTRUCTOR ---
-    /**@param controller controller to delegar acciones
-     * @param onExit */
-    public ConsoleMenu(AppController controller, Runnable onExit) {
+    /**@param controller controller to delegar acciones*/
+    public ConsoleMenu(AppController controller) {
         this.controller = controller;
         this.scanner = new Scanner(System.in);
-        this.onExit = onExit;
     }
 
     // --- METODOS ---
@@ -43,9 +40,6 @@ public class ConsoleMenu {
             }
             this.handleOption(option);
         }
-
-        // Callback for exit handling
-        if (this.onExit != null) { onExit.run(); }
 
     }
 
@@ -75,7 +69,6 @@ public class ConsoleMenu {
                 case EXIT -> {
                     controller.exitRequested();
                     this.running = false;
-                    System.out.println("\nSaliendo y guardando datos...");
                 }
                 default -> System.out.println("Opción no válida, intente de nuevo.");
             }

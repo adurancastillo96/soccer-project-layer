@@ -111,14 +111,29 @@ public class Main {
         eventBus.subscribe(PlayerDeletedFromTeamEvent.class, persistenceListener);
         eventBus.subscribe(MatchSimulatedEvent.class, persistenceListener);
 
-        /** Crea un menu con un hook de salida*/
-        ConsoleMenu menu = new ConsoleMenu(controller, () -> {
-            // on exit: flush pending saves and shut down listeners
-            persistenceListener.saveSnapshotNow();
-            persistenceListener.shutdown();
-            eventBus.shutdown();
+        // DEFINIR LA LÓGICA DE APAGADO (Centralizada)
+        // Creamos un hilo que se encarga de cerrar todo ordenadamente
+        Thread shutdownTask = new Thread(() -> {
+            System.out.println("\nGuardando datos y cerrando recursos...");
+            logger.info("Detectado cierre de la aplicación. Iniciando guardado de emergencia...");
+            persistenceListener.saveSnapshotNow(); // Guarda datos críticos
+            persistenceListener.shutdown();        // Cierra hilos de persistencia
+            eventBus.shutdown();                   // Cierra bus de eventos
+            logger.info("Sistema apagado correctamente.");
         });
+
+        // REGISTRAR EL HOOK EN LA JVM
+        // Esto asegura que shutdownTask se ejecute incluso con Ctrl+C
+        Runtime.getRuntime().addShutdownHook(shutdownTask);
+
+        // LANZAR EL MENÚ
+        // Ya no necesitamos pasarle el runnable al menú, porque la JVM se encarga
+        ConsoleMenu menu = new ConsoleMenu(controller);
         menu.runLoop();
         menu.close();
+
+        // Salida explícita
+        // Esto mata los hilos "zombies" del EventBus que se quedan pensando
+        System.exit(0);
     }
 }
