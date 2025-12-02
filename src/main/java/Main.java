@@ -6,7 +6,7 @@ import persistence.DataSerializer;
 import persistence.SnapshotSerializer;
 import persistence.FilePersistenceListener;
 import persistence.SoccerData;
-import repository.InMemoryTeamRepository;
+import repository.InMemoryDatabase;
 import service.PlayerService;
 import service.TeamService;
 import service.impl.PlayerServiceImpl;
@@ -18,7 +18,6 @@ import ui.UiEventListener;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
-import java.util.List;
 import java.util.Properties;
 
 public class Main {
@@ -65,7 +64,7 @@ public class Main {
         DataSerializer serializer = new SnapshotSerializer(teamsCsv, playersCsv, teamsJson, playersJson);
 
         // Create repository and preload teams from persistence.
-        InMemoryTeamRepository memoryRepo = new InMemoryTeamRepository();
+        InMemoryDatabase memoryRepo = new InMemoryDatabase();
 
         // Attempt to load data from JSON, falling back to CSV
         try {

@@ -4,11 +4,10 @@ import events.bus.EventBus;
 import model.Team;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import repository.InMemoryTeamRepository;
+import repository.InMemoryDatabase;
 import domain.DomainException;
 import domain.DomainErrorCode;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -22,7 +21,7 @@ class TeamServiceImplTest {
     void shouldCreateTeamSuccessfully() {
         // 1. PREPARACIÓN (Arrange)
         // Usamos la implementación en memoria, que es rápida y perfecta para tests
-        InMemoryTeamRepository repo = new InMemoryTeamRepository();
+        InMemoryDatabase repo = new InMemoryDatabase();
         EventBus eventBus = new EventBus();
 
         // Instanciamos el servicio pasando el repo (dos veces, ya que implementa ambas interfaces)
@@ -53,7 +52,7 @@ class TeamServiceImplTest {
     @DisplayName("findTeam() debe lanzar excepción si el ID no existe")
     void shouldThrowExceptionWhenTeamNotFound() {
         // 1. PREPARACIÓN
-        InMemoryTeamRepository repo = new InMemoryTeamRepository();
+        InMemoryDatabase repo = new InMemoryDatabase();
         EventBus eventBus = new EventBus();
         TeamServiceImpl teamService = new TeamServiceImpl(repo, repo, eventBus);
 

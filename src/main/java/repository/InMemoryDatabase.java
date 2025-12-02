@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * Implementación en memoria de TeamRepository.
  * Usa Concurrent Maps - Thread-Safe
  */
-public class InMemoryTeamRepository implements TeamRepository, PlayerRepository {
+public class InMemoryDatabase implements TeamRepository, PlayerRepository {
     private final Map<UUID, Team> teams = new ConcurrentHashMap<>();
     private final Map<UUID, Player> players = new ConcurrentHashMap<>();
 

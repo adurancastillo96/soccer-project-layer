@@ -6,7 +6,7 @@ import model.Team;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import repository.InMemoryTeamRepository;
+import repository.InMemoryDatabase;
 import domain.DomainException;
 import domain.DomainErrorCode;
 
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PlayerServiceImplTest {
 
-    private InMemoryTeamRepository repository;
+    private InMemoryDatabase repository;
     private PlayerServiceImpl playerService;
     private TeamServiceImpl teamService;
     private UUID teamId;
@@ -25,7 +25,7 @@ class PlayerServiceImplTest {
     @BeforeEach
     void setUp() {
         // 1. Preparación antes de cada test (Reset del entorno)
-        repository = new InMemoryTeamRepository();
+        repository = new InMemoryDatabase();
         EventBus eventBus = new EventBus();
 
         // Necesitamos ambos servicios
